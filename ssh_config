@@ -1,0 +1,11 @@
+Host *
+	XAuthLocation /opt/X11/bin/xauth
+
+Host farnam
+	HostName farnam.hpc.yale.edu
+	User [YOUR-NETID]
+	Port 22
+	IdentityFile ~/.ssh/id_rsa
+	ForwardX11 yes
+	ForwardX11Trusted yes
+	Compression yes
