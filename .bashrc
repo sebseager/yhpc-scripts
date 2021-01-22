@@ -86,23 +86,6 @@ touch-todelete() {
     echo "Done."
 }
 
-# replace the extensions of files in the args 2-n with the extension in arg 1
-replace-ext() {
-    # we need at least two args
-    if [ $# -lt 2 ]; then
-        echo "usage: replace-ext .new_ext files..."
-        exit 1
-    fi
-
-    new_ext="$1"
-    shift  # $2 is now first argument, and first is gone
-
-    # do replace
-    for f in "$@"; do
-        mv $f ${f%.*}"$new_ext"
-    done
-}
-
 ###########################
 ### Personal preference ###
 ###########################
