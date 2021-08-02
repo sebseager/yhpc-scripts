@@ -7,12 +7,12 @@
 mkdir -p ~/jupyter/logs  # create log directory
 
 # Jupyter environment via virtualenv
-virtualenv ~/venv_jupyter_server --python=python3
-activate=~/venv_default/bin/activate
+# virtualenv ~/jupyter_env --python=python3
+# activate=~/venv_default/bin/activate
 
 # Jupyter environment via conda
-# conda create -yn jupyter_env anaconda python=3
-# activate=`which activate`
+conda create -yn jupyter_env anaconda python=3
+activate=`which activate`
 
 
 # SLURM
