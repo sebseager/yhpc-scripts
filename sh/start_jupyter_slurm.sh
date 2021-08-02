@@ -1,16 +1,24 @@
+#!/bin/bash
 # based on a script by Christopher JF Cameron
 
 
-# create log directory
-mkdir -p ~/jupyter/logs
+# SETUP
 
-# create Jupyter notebook environment
-virtualenv ~/venv_jupyter_server --python=python3  # via virtualenv
-# conda create -yn jupyter_env anaconda python=3  # via conda
+mkdir -p ~/jupyter/logs  # create log directory
+
+# Jupyter environment via virtualenv
+virtualenv ~/venv_jupyter_server --python=python3
+activate=~/venv_default/bin/activate
+
+# Jupyter environment via conda
+# conda create -yn jupyter_env anaconda python=3
+# activate=`which activate`
+
+
+# SLURM
 
 # create SLURM job sumission to run Jupyter server
 # https://docs.ycrc.yale.edu/clusters-at-yale/guides/jupyter/
-activate=`which activate`
 home_dir=`readlink -f ~`
 
 # contents of jupyter_server.sh
@@ -18,8 +26,8 @@ echo "#!/bin/sh
 #SBATCH --partition pi_gerstein
 #SBATCH --nodes 1
 #SBATCH --ntasks-per-node 1
-#SBATCH --mem-per-cpu 5G
-#SBATCH --time 1-0:00:00
+#SBATCH --mem-per-cpu 12G
+#SBATCH --time 12:00:00
 #SBATCH --job-name jupyter-notebook
 #SBATCH --output ${home_dir}/jupyter/logs/jupyter-notebook-%J.log
 
@@ -32,11 +40,12 @@ cluster=\$(hostname -f | awk -F'.' '{print \$2}')
 
 # print tunneling instructions jupyter-log
 echo -e \"
-For more info and how to connect from Windows, see https://docs.ycrc.yale.edu/clusters-at-yale/guides/jupyter/
+For more info and how to connect from Windows, 
+    see https://docs.ycrc.yale.edu/clusters-at-yale/guides/jupyter/
 On macOS or Linux, create ssh tunnel with
-ssh -N -L \${port}:\${node}:\${port} \${user}@\${cluster}.hpc.yale.edu
+    ssh -N -L \${port}:\${node}:\${port} \${user}@\${cluster}.hpc.yale.edu
 Use a Browser on your local machine to go to:
-localhost:\${port}  (prefix w/ https:// if using password)
+    localhost:\${port}  (prefix w/ https:// if using password)
 \"
 
 source $activate jupyter_env
