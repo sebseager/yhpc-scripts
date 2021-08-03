@@ -11,7 +11,7 @@ mkdir -p ~/jupyter/logs  # create log directory
 # activate=~/venv_default/bin/activate
 
 # Jupyter environment via conda
-conda create -yn jupyter_env anaconda python=3
+conda create -yn jupyter_env python=3.8
 activate=`which activate`
 
 
@@ -57,4 +57,6 @@ rm -f ~/jupyter/logs/*.log
 sbatch ~/jupyter/jupyter_server.sh
 
 # get tunnel commands
-ls -d ~/jupyter/logs/*.log | tail -n 1 | xargs -n 1 -I {} cat {}
+echo "Submitted job. To check logs, run:
+    ls -d ~/jupyter/logs/*.log | tail -n 1 | xargs -n 1 -I {} cat {}
+"
